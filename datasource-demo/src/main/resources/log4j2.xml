@@ -1,50 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>  
-<Configuration monitorInterval="30">  
-    <Appenders>  
-        <RollingRandomAccessFile name="demolog_warn" fileName="${logging.directory}/demo_warn.log" filePattern="${logging.directory}/demo_warn-%d{yyyy-MM-dd}.log.gz" >
-        	<PatternLayout>
-                <Pattern>[%-6p]:[%d{ISO8601}]:[%t]:[%c{2}]:%m%n</Pattern>
-            </PatternLayout>  
-            <Policies>  
-                <TimeBasedTriggeringPolicy modulate="true"  interval="1" />  
-            </Policies>  
-            <Filters>
-             	<ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
-            </Filters>
-          	<DefaultRolloverStrategy>  
-	         	<Delete basePath="${logging.directory}" maxDepth="1">  
-                      <IfFileName glob="demo_warn-*.log.gz" />
-                      <IfLastModified age="30d" />  
-	             </Delete>  
-            </DefaultRolloverStrategy>  
-        </RollingRandomAccessFile>  
-        
-        <RollingRandomAccessFile name="demolog_debug" fileName="${logging.directory}/demo_debug.log" filePattern="${logging.directory}/demo_debug-%d{yyyy-MM-dd}.log.gz" >
-            <PatternLayout>
-                <Pattern>[%-6p]:[%d{ISO8601}]:[%t]:[%c{2}]:%m%n</Pattern>
-            </PatternLayout>  
-            <Policies>  
-                <TimeBasedTriggeringPolicy modulate="true"  interval="1" />  
-            </Policies>  
-            <Filters>
-             	<ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
-            </Filters>
-	        <DefaultRolloverStrategy>  
-	         	<Delete basePath="${logging.directory}" maxDepth="1">  
-                      <IfFileName glob="demo_debug-*.log.gz" />
-                      <IfLastModified age="3d" />  
-	             </Delete>  
-            </DefaultRolloverStrategy>  
-         </RollingRandomAccessFile>  
-    </Appenders>  
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n"/>
+        </Console>
+    </Appenders>
     <Loggers>
-	    <AsyncLogger level="DEBUG" additivity="false">
-	        <appender-ref ref="demolog_debug" />
-	        <appender-ref ref="demolog_warn" />
-	    </AsyncLogger>
-	    <asyncRoot level="DEBUG">
-			<appender-ref ref="demolog_warn" />
-			<appender-ref ref="demolog_debug" />
-		</asyncRoot>
-	</Loggers>
-</Configuration>  
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
