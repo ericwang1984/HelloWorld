@@ -39,6 +39,7 @@ public class JpaDemoApplication implements ApplicationRunner {
 	}
 
 	@Override
+	//在这里开启了事务
 	@Transactional
 	public void run(ApplicationArguments args) throws Exception {
 		initOrders();
